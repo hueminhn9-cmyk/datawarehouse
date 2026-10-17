@@ -105,7 +105,43 @@ Dự án áp dụng trực tiếp **khuyến nghị trong Slide bài giảng**:
 
 ---
 
-## 🚀 4. HƯỚNG DẪN CÀI ĐẶT & KHỞI CHẠY HỆ THỐNG
+## 📁 4. CẤU TRÚC THƯ MỤC DỰ ÁN (PROJECT STRUCTURE)
+
+```
+DataWarehouse/
+├── .streamlit/             # Cấu hình giao diện Streamlit (Light Mode)
+│   └── config.toml
+├── dashboard/              # Ứng dụng Báo cáo Dashboard Đa Ngôn Ngữ
+│   ├── pages/              # 6 màn hình phân tích điều hành chuyên sâu
+│   ├── app.py              # File chạy chính của Dashboard Streamlit
+│   ├── components.py       # Thành phần UI tái sử dụng (KPI card, badge status)
+│   ├── data.py             # Kho truy xuất DuckDB an toàn (Read-Only thread-safe)
+│   ├── i18n.py             # Từ điển song ngữ (Tiếng Việt & English)
+│   └── styles.py           # Thiết kế bảng màu và định dạng biểu đồ Plotly
+├── data/                   # Thư mục chứa CSDL DuckDB và file nén Parquet
+│   ├── parquet/            # Dữ liệu dạng cột nén Apache Parquet
+│   ├── instacart_dw.duckdb # CSDL kho dữ liệu nhúng DuckDB (1.78 GB)
+│   └── .gitkeep
+├── docs/                   # Tài liệu kiến trúc hệ thống
+│   └── architecture.md
+├── etl/                    # Kịch bản đường ống ETL
+│   ├── convert_to_parquet.py # Chuyển đổi CSV thô sang Parquet qua Polars
+│   └── build_warehouse.py   # Xây dựng Star Schema và nạp dữ liệu vào DuckDB
+├── scripts/                # Kịch bản công cụ bổ trợ
+│   └── eda_preview.py      # Khảo sát nhanh cấu trúc dữ liệu thô
+├── sql/                    # Mã nguồn DDL và Truy vấn OLAP chuẩn ANSI SQL
+│   ├── 01_star_schema.sql  # DDL định nghĩa Star Schema (Fact & Dimension)
+│   └── 02_olap_queries.sql # 6 câu truy vấn OLAP nâng cao (Rollup, Cube...)
+├── tests/                  # Bộ kiểm thử chất lượng dữ liệu tự động
+│   └── test_etl.py         # Kiểm thử 100% tính toàn vẹn và mức hạt Fact/Dim
+├── README.md               # Báo cáo đồ án giữa kỳ hoàn chỉnh & Bộ câu hỏi vấn đáp
+├── requirements.txt        # Danh mục thư viện Python phụ thuộc
+└── run_dashboard.py        # Kịch bản khởi chạy Dashboard chỉ với 1 click
+```
+
+---
+
+## 🚀 5. HƯỚNG DẪN CÀI ĐẶT & KHỞI CHẠY HỆ THỐNG
 
 ### Bước 1: Cài đặt môi trường
 Yêu cầu Python 3.10 trở lên. Cài đặt các thư viện phụ thuộc:
@@ -131,9 +167,9 @@ Truy cập giao diện tại: `http://localhost:8501`.
 
 ---
 
-## 📊 5. DANH MỤC TRUY VẤN OLAP NÂNG CAO (`sql/02_olap_queries.sql`)
+## 📊 6. DANH MỤC TRUY VẤN OLAP NÂNG CAO (`sql/02_olap_queries.sql`)
 
-Dự án cung cấp sẵn kịch bản 6 câu truy vấn OLAP chuẩn ANSI SQL tại [sql/02_olap_queries.sql](file:///d:/DataWarehouse/DataWarehouse/sql/02_olap_queries.sql) (có thể chạy trực tiếp trên giao diện tại trang **06 - OLAP Studio**):
+Dự án cung cấp sẵn kịch bản 6 câu truy vấn OLAP chuẩn ANSI SQL tại [sql/02_olap_queries.sql](file:///d:/DataWarehouse/DataWarehouse/sql/02_olap_queries.sql):
 
 1. **ROLL-UP:** Tổng hợp doanh số phân cấp `Ngành hàng -> Kệ hàng -> Sản phẩm`.
 2. **CUBE:** Phân tích đa chiều ma trận `Ngày trong tuần x Khung giờ`.
@@ -144,7 +180,7 @@ Dự án cung cấp sẵn kịch bản 6 câu truy vấn OLAP chuẩn ANSI SQL t
 
 ---
 
-## 🎯 6. BỘ CÂU HỎI & TRẢ LỜI VẤN ĐÁP GIỮA KỲ (ORAL DEFENSE)
+## 🎯 7. BỘ CÂU HỎI & TRẢ LỜI VẤN ĐÁP GIỮA KỲ (ORAL DEFENSE)
 
 * **Hỏi:** *Tại sao em lại chọn mô hình Star Schema thay vì Snowflake Schema?*
   - **Đáp:** Star Schema chuẩn hóa phẳng bảng `dim_products` (gộp sẵn `department_name` và `aisle_name`), giúp giảm bớt các phép `JOIN` tốn kém khi truy vấn trên tập dữ liệu lớn 33+ triệu dòng, tối ưu tốc độ đọc cho các báo cáo OLAP.

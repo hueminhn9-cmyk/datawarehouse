@@ -9,7 +9,7 @@ if sys.platform == "win32":
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 PARQUET_DIR = os.path.join(BASE_DIR, "data", "parquet")
 DB_PATH = os.path.join(BASE_DIR, "data", "instacart_dw.duckdb")
-SQL_SCHEMA_PATH = os.path.join(BASE_DIR, "sql", "01_schema_duckdb.sql")
+SQL_SCHEMA_PATH = os.path.join(BASE_DIR, "sql", "01_star_schema.sql")
 
 def build_duckdb_warehouse():
     print("=" * 70)
