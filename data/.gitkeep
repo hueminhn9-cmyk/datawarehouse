@@ -1,0 +1,4 @@
+# This file ensures the data/ directory exists in the repository.
+# Warehouse database is built using:
+#   python etl/convert_to_parquet.py
+#   python etl/build_warehouse.py

@@ -1,0 +1,16 @@
+# =========================================================
+# CÁC THƯ VIỆN CỐT LÕI CHO ĐỒ ÁN KHO DỮ LIỆU (DUCKDB + PARQUET)
+# =========================================================
+
+# Modern OLAP & Columnar Storage Engine (Khuyến nghị Slide bài giảng)
+duckdb>=1.1.0
+polars>=1.0.0
+pyarrow>=14.0.0
+pandas>=2.0.0
+
+# Trực quan hóa & Báo cáo Dashboard
+streamlit>=1.28.0
+plotly>=5.18.0
+
+# Kiểm thử chất lượng dữ liệu
+pytest>=7.4.0
