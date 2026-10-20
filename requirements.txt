@@ -1,9 +1,14 @@
-# =========================================================
-# CÁC THƯ VIỆN CỐT LÕI CHO ĐỒ ÁN KHO DỮ LIỆU (DUCKDB + PARQUET)
+﻿# =========================================================
+# CÁC THƯ VIỆN CỐT LÕI CHO ĐỒ ÁN KHO DỮ LIỆU
 # =========================================================
 
-# Modern OLAP & Columnar Storage Engine (Khuyến nghị Slide bài giảng)
+# Database Engines (Microsoft SQL Server & DuckDB)
+pyodbc>=5.0.0
+sqlalchemy>=2.0.0
 duckdb>=1.1.0
+python-dotenv>=1.0.0
+
+# Dữ liệu & Xử lý Parquet
 polars>=1.0.0
 pyarrow>=14.0.0
 pandas>=2.0.0
